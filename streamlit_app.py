@@ -16,7 +16,7 @@ def generate_legal_answer(question, context, language="en"):
     )
     return response.choices[0].text
 
-uploaded_file = st.file_uploader("/content/sample_data/constitution of india.pdf")
+uploaded_file = file_uploader("/content/sample_data/constitution of india.pdf")
 
 if uploaded_file is not None:
     file_content = st.read_uploaded_file(uploaded_file)
