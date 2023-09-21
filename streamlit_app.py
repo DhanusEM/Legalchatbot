@@ -19,7 +19,7 @@ def generate_legal_answer(question, context, language="en"):
 uploaded_file = st.file_uploader("/content/sample_data/constitution of india.pdf")
 
 if uploaded_file is not None:
-    file_content = read_uploaded_file(uploaded_file)
+    file_content = st.read_uploaded_file(uploaded_file)
     user_input = st.text_input("Enter the question", "")
     selected_language = st.selectbox("Select Language", ["English", "தமிழ்"])
 
