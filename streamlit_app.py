@@ -1,31 +1,34 @@
-
-import streamlit as st
-import openai
-
-st.title("LEGAL ASSITANT")
-
 import streamlit as st
 import openai
 
 
-openai.api_key = "YOUR_API_KEY"
+openai.api_key = "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"
 
-st.title("LEGAL ASSISTANT")
+st.title(" Legal Assistant")
 
-def generate_legal_answer(question, context):
+def generate_legal_answer(question, context, language="en"):
+    prompt = f"Question ({language}): {question}\nContext ({language}): {context}\nAnswer:"
     response = openai.Completion.create(
-        engine="text-davinci-002",  # You can choose an appropriate engine
-        prompt=f"Question: {question}\nContext: {context}\nAnswer:",
-        max_tokens=200
+        engine="davinci",  
+        prompt=prompt,
+        max_tokens=250,  
+        temperature=0.7,  
     )
     return response.choices[0].text
 
-uploaded_file = st.file_uploader("")
+uploaded_file = st.file_uploader("Upload a PDF file")
 
 if uploaded_file is not None:
     file_content = read_uploaded_file(uploaded_file)
     user_input = st.text_input("Enter the question", "")
+    selected_language = st.selectbox("Select Language", ["English", "தமிழ்"])
 
     if st.button("Send"):
-        bot_response = generate_legal_answer(user_input, file_content[:500])
-        st.text("Answer:", bot_response)
+        if selected_language == "English":
+            bot_response = generate_legal_answer(user_input, file_content[:500], "en")
+        elif selected_language == "தமிழ்":
+            bot_response = generate_legal_answer(user_input, file_content[:500], "ta")
+        else:
+            bot_response = "Language not supported."
+
+        st.text("Answer:", bot_response),
