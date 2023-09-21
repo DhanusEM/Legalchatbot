@@ -5,6 +5,9 @@ import openai
 openai.api_key = "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"
 
 st.title(" Legal Assistant")
+def read_uploaded_file(file):
+    content = file.read()
+    return content
 
 def generate_legal_answer(question, context, language="en"):
     prompt = f"Question ({language}): {question}\nContext ({language}): {context}\nAnswer:"
